@@ -1,1 +1,2 @@
 discord==2.3.2
+streamlit-extras==0.3.4
