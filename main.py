@@ -32,7 +32,7 @@ colored_header(
     color_name="gray-70",
 )
 
-text_1 = '<p style="font-family:sans-serif; color:#4d372c; font-size: 20px;">I am a skilled data analyst with expertise in Natural Language Processing (NLP) and Python development. I\'ve made meaningful contributions to organizations like the Ethereum Foundation, Lilnouns.eth, Flipside Crypto. I\'m currently contributing my data analysis skills to Metricsdao.<br><br>My passion lies in transforming data into actionable insights. With a strong track record of leveraging NLP to extract valuable information from unstructured text, I\'m dedicated to helping organizations harness the power of data for strategic decision-making and innovation. Explore my portfolio to see how I can bring data-driven success to your organization.</p>'
+text_1 = '<p style="font-family:sans-serif; color:#4d372c; font-size: 20px; text-align:justify">I am a skilled data analyst with expertise in Natural Language Processing (NLP) and Python development. I\'ve made meaningful contributions to organizations like the Ethereum Foundation, Lilnouns.eth, Flipside Crypto. I\'m currently contributing my data analysis skills to Metricsdao.<br><br>My passion lies in transforming data into actionable insights. With a strong track record of leveraging NLP to extract valuable information from unstructured text, I\'m dedicated to helping organizations harness the power of data for strategic decision-making and innovation. Explore my portfolio to see how I can bring data-driven success to your organization.</p>'
 
 st.markdown(text_1, unsafe_allow_html=True)
 
