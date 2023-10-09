@@ -1,6 +1,6 @@
 import streamlit as st
-import asyncio
-import discord
+import smtplib
+import ssl
 from streamlit_extras.colored_header import colored_header
 
 st.set_page_config(
@@ -32,7 +32,7 @@ colored_header(
     color_name="gray-70",
 )
 
-text_1 = '<p style="font-family:sans-serif; color:#4d372c; font-size: 20px; text-align:justify">I am a skilled data analyst with expertise in Natural Language Processing (NLP) and Python development. I\'ve made meaningful contributions to organizations like the Ethereum Foundation, Lilnouns.eth, Flipside Crypto. I\'m currently contributing my data analysis skills to Metricsdao.<br><br>My passion lies in transforming data into actionable insights. With a strong track record of leveraging NLP to extract valuable information from unstructured text, I\'m dedicated to helping organizations harness the power of data for strategic decision-making and innovation. Explore my portfolio to see how I can bring data-driven success to your organization.</p>'
+text_1 = '<p style="font-family:sans-serif; color:#4d372c; font-size: 20px;">I am a skilled data analyst with expertise in Natural Language Processing (NLP) and Python development. I\'ve made meaningful contributions to organizations like the Ethereum Foundation, Lilnouns.eth, Flipside Crypto. I\'m currently contributing my data analysis skills to Metricsdao.<br><br>My passion lies in transforming data into actionable insights. With a strong track record of leveraging NLP to extract valuable information from unstructured text, I\'m dedicated to helping organizations harness the power of data for strategic decision-making and innovation. Explore my portfolio to see how I can bring data-driven success to your organization.</p>'
 
 st.markdown(text_1, unsafe_allow_html=True)
 
@@ -86,25 +86,28 @@ with col1:
     st.empty()
 
 with col2:
-    with st.form("contact_me"):
+
+    with st.form("contact_me", clear_on_submit=True):
         name = st.text_input("Name:")
         email = st.text_input("Email Address:")
-        subject = st.text_input("Subject:")
         message = st.text_area("Message:")
-        submitted = st.form_submit_button("Send 📨")
-        if submitted:
-            # Create a new Discord client
-            client = discord.Client(intents=discord.Intents.default())
-
-            @client.event
-            async def on_ready():
-                channel = client.get_channel(st.secrets["channel_id"])  # Replace YOUR_CHANNEL_ID with the desired channel ID
-                await channel.send('hi')
-
-            # Run the bot with the provided token
-            client.run(st.secrets["bot_token"])
+        if st.form_submit_button("Send 📨"):
+            email_from = 'oladaniel19@gmail.com'
+            password = st.secrets["gmail_app_password"]
+            email_to = 'oladaniel19@gmail.com'
+            email_string = f'''Subject: OOlajide - Contact Me
+{name}\n\n{email}\n\n{message}
+            '''
+            # Connect to the Gmail SMTP server and Send Email
+            # Create a secure default settings context
+            context = ssl.create_default_context()
+            # Connect to Gmail's SMTP Outgoing Mail server with such context
+            with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+                # Provide Gmail's login information
+                server.login(email_from, password)
+                # Send mail with from_addr, to_addrs, msg, which were set up as variables above
+                server.sendmail(email_from, email_to, email_string)
             st.success('Sent', icon="✅")
-
 
 with col3:
     st.empty()
